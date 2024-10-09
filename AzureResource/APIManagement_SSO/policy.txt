@@ -1,0 +1,36 @@
+<policies>
+    <inbound>
+        <base />
+        <set-backend-service id="apim-generated-policy" backend-id="poc-sso" />
+        <validate-jwt header-name="Authorization" failed-validation-httpcode="401" require-scheme="Bearer" output-token-variable-name="jwt">
+            <openid-config url="https://login.microsoftonline.com/3c65fa17-1a6c-4159-9a2d-b6eba740a8f7/v2.0/.well-known/openid-configuration" />
+            <audiences>
+                <audience>71f772ed-a1de-4585-8fdb-c8a7d181232b</audience>
+            </audiences>
+            <issuers>
+                <issuer>https://login.microsoftonline.com/5ea178fd-9ff4-40f6-8bf2-8481ead25b37/v2.0</issuer>
+            </issuers>
+        </validate-jwt>
+        <cors allow-credentials="false">
+            <allowed-origins>
+                <origin>*</origin>
+            </allowed-origins>
+            <allowed-methods>
+                <method>GET</method>
+                <method>POST</method>
+            </allowed-methods>
+            <allowed-headers>
+                <header>*</header>
+            </allowed-headers>
+        </cors>
+    </inbound>
+    <backend>
+        <base />
+    </backend>
+    <outbound>
+        <base />
+    </outbound>
+    <on-error>
+        <base />
+    </on-error>
+</policies>
